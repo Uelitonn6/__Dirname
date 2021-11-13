@@ -1,14 +1,14 @@
-const { readFileSync } = require('fs')
+const { readFile } = require('fs/promises')
 const { join } = require('path')
 
 class Example {
-    static csvToString(filePath) {
+    static async csvToString(filePath) {
         const normalize = join(__dirname, filePath)
-        return (readFileSync(normalize) ).toString('utf8')
+        return (await readFile(normalize) ).toString('utf8')
     }
 }
 
-(() => {
-    const result =  Example.csvToString('../mocks/itens.csv')
+(async () => {
+    const result = await Example.csvToString('../mocks/itens.csv')
     console.log(result)
 })()
